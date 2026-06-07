@@ -4,9 +4,9 @@
 // ══════════════════════════════════════════════
 
 // ── SUPABASE ──────────────────────────────────
-export const SUPABASE_URL = 'https://wbaiabwnarelrxywwmde.supabase.co';
+export const SUPABASE_URL = 'https://hhjrnqtcfjqwkucajsyz.supabase.co';
 
-export const SUPABASE_KEY = 'sb_publishable_CyA7xuosRSooKQGBnwkKNQ_XZurm_LE';
+export const SUPABASE_KEY = 'sb_publishable_qU4-VOz1VXDP4S8fij_l0Q_dnAjoy0k';
 export const STORAGE_URL  = `${SUPABASE_URL}/storage/v1/object/public/imagenes`;
 
 // ── WhatsApp ──────────────────────────────────
