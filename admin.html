@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SAOCO PERFUMES — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Único CSS del admin -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-brand">SAOCO</div>
+    <div class="login-sub">PERFUMES — ADMIN</div>
+    <label class="login-label">CONTRASEÑA</label>
+    <input id="pwd-input" class="login-input" type="password" placeholder="••••••••••••">
+    <!-- Sin onclick — el controller añade el listener -->
+    <button id="login-btn" class="login-btn">INGRESAR</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-screen">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-brand">SAOCO</div>
+    <div class="topbar-badge">PANEL ADMIN</div>
+    <!-- Sin onclick — el controller añade el listener -->
+    <button id="logout-btn" class="topbar-logout">Cerrar sesión</button>
+  </div>
+
+  <!-- TABS -->
+  <!-- data-tab en cada botón — el controller usa delegación de eventos -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="faq">❓ Preguntas</button>
+    <button class="tab-btn" data-tab="pagos">💳 Pagos</button>
+    <button class="tab-btn" data-tab="promos">🎁 Promociones</button>
+    <button class="tab-btn" data-tab="mayorista">🤝 Mayorista</button>
+    <button class="tab-btn" data-tab="config">⚙ Config</button>
+  </div>
+
+  <div class="content">
+
+    <!-- SECCIÓN FAQ -->
+    <div id="sec-faq" class="section active">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Preguntas Frecuentes</div>
+          <div class="section-desc">Gestiona las preguntas que verán los clientes en el chat.</div>
+        </div>
+        <button id="add-faq-btn" class="btn btn-gold">+ Agregar pregunta</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Pregunta</th>
+              <th>Respuesta</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="faq-tbody">
+            <tr class="loading-row">
+              <td colspan="4"><div class="spinner"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECCIÓN PAGOS -->
+    <div id="sec-pagos" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Medios de Pago</div>
+          <div class="section-desc">Define los métodos de pago disponibles.</div>
+        </div>
+        <button id="add-pagos-btn" class="btn btn-gold">+ Agregar medio</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Medio</th>
+              <th>Detalle</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="pagos-tbody">
+            <tr class="loading-row">
+              <td colspan="4"><div class="spinner"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECCIÓN PROMOS -->
+    <div id="sec-promos" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Promociones</div>
+          <div class="section-desc">Crea y edita las ofertas especiales del chatbot.</div>
+        </div>
+        <button id="add-promos-btn" class="btn btn-gold">+ Agregar promo</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Imagen (ID)</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="promos-tbody">
+            <tr class="loading-row">
+              <td colspan="5"><div class="spinner"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECCIÓN MAYORISTA -->
+    <div id="sec-mayorista" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Imágenes Mayorista</div>
+          <div class="section-desc">IDs de imágenes de Google Drive para clientes mayoristas.</div>
+        </div>
+        <button id="add-mayorista-btn" class="btn btn-gold">+ Agregar imagen</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ID de Imagen (Google Drive)</th>
+              <th>Vista previa</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="mayorista-tbody">
+            <tr class="loading-row">
+              <td colspan="4"><div class="spinner"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECCIÓN CONFIG -->
+    <div id="sec-config" class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Configuración</div>
+          <div class="section-desc">Número de WhatsApp del asesor para contacto directo.</div>
+        </div>
+      </div>
+      <div class="config-card">
+        <div class="form-group">
+          <label class="form-label">NÚMERO DE ASESOR (WhatsApp)</label>
+          <input id="config-numero" class="form-input" type="text"
+                 placeholder="Ej: 573001234567">
+          <div class="form-hint">
+            Incluye el código de país sin el signo +.<br>
+            Ejemplo: 573001234567 para Colombia.
+          </div>
+        </div>
+        <!-- Sin onclick — el controller añade el listener -->
+        <button id="save-config-btn" class="btn btn-gold">Guardar número</button>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /admin-screen -->
+
+<!-- MODAL GENÉRICO -->
+<div id="modal-bg" class="modal-bg">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">Agregar</div>
+    <div id="modal-body"></div>
+    <div class="modal-actions">
+      <!-- Sin onclick — el controller añade el listener -->
+      <button class="btn btn-ghost" id="modal-cancel-btn">Cancelar</button>
+      <button class="btn btn-gold"  id="modal-save-btn">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- Punto de entrada — type="module" habilita ES Modules -->
+<script type="module">
+  import { AdminController } from './js/controllers/AdminController.js';
+  window.addEventListener('DOMContentLoaded', () => AdminController.init());
+</script>
+
+</body>
+</html>
