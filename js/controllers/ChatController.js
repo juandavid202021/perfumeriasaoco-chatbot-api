@@ -288,27 +288,30 @@ export const ChatController = {
     }
   },
 
-  // ── OPCIÓN 1: FAQ ────────────────────────
+// ── OPCIÓN 1: FAQ ────────────────────────
   async _showFAQ() {
-    this.state = 'faq';
+  this.state = 'faq';
+  localStorage.setItem(LS_STATE, this.state);
+  let faqs = [];
+  try { faqs = await FAQModel.getAll(); } catch(e) {
+    await this._botSay('😔 No se pudo cargar las preguntas. Intenta de nuevo.', 700);
+    this.state = 'faq_respuesta';
     localStorage.setItem(LS_STATE, this.state);
-    let faqs = [];
-    try { faqs = await FAQModel.getAll(); } catch(e) {
-      await this._botSay('😔 No se pudo cargar las preguntas. Intenta de nuevo.', 700);
-      return;
-    }
-    if (faqs.length === 0) {
-      await this._botSay('😔 No hay preguntas disponibles en este momento.', 700);
-      this.state = 'faq_respuesta';
-      return;
-    }
-    const list = faqs.map((f, i) => `${i + 1}. ${f.pregunta}`).join('\n');
-    await this._botSay(
-      `❓ Preguntas frecuentes:\n\n${list}\n\nResponde con el número de la pregunta.`,
-      800
-    );
-  },
-
+    return;
+  }
+  if (faqs.length === 0) {
+    await this._botSay('😔 No hay preguntas disponibles en este momento.', 700);
+    await this._botSay('━━━━━━━━━━━━━━━\n1. Volver al menú\n2. Salir', 400);
+    this.state = 'faq_respuesta';
+    localStorage.setItem(LS_STATE, this.state);
+    return;
+  }
+  const list = faqs.map((f, i) => `${i + 1}. ${f.pregunta}`).join('\n');
+  await this._botSay(
+    `❓ Preguntas frecuentes:\n\n${list}\n\nResponde con el número de la pregunta.`,
+    800
+  );
+},
   async _handleFAQ(num) {
     const faqs = await FAQModel.getAll();
     if (num >= 1 && num <= faqs.length) {
